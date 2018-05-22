@@ -15,6 +15,7 @@ class App extends Component {
       ]
     };
     this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   add(newUser) {
@@ -24,11 +25,19 @@ class App extends Component {
     });
   }
 
+  remove(i) {
+    // Attention à bien Binder cette fonction pour qu'elle soit accessible sur l'ensemble du composant
+    this.state.users.splice(i, 1);
+    this.setState({
+      users: this.state.users
+    });
+  }
+
   render() {
     return (
       <div>
         <div className="container">
-          <Liste users={this.state.users} />
+          <Liste users={this.state.users} removeUser={this.remove} />
           <hr />
           <Formulaire addUser={this.add} />
         </div>
